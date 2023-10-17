@@ -1,0 +1,8 @@
+SELECT c.id, c.movie, c.description, c.rating
+FROM (
+    SELECT id, movie, description, rating, 
+           ROW_NUMBER() OVER (ORDER BY rating DESC) AS rn
+    FROM Cinema
+    WHERE id % 2 = 1 AND description != 'boring'
+) c
+ORDER BY c.rn;
